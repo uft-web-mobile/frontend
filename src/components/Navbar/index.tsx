@@ -12,7 +12,9 @@ import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { useAuth } from '../../context/auth';
+import { SignOut, User } from '@phosphor-icons/react';
 
+import './style.css'
 
 export const NavBar = () => {
   
@@ -23,6 +25,10 @@ export const NavBar = () => {
     setAnchorElUser(event.currentTarget);
   };
 
+  const handleProfile = () => {
+
+  }
+  
   const handleClose = () => {
     setAnchorElUser(null);
   };
@@ -33,18 +39,6 @@ export const NavBar = () => {
   }
 
   return (
-    // <nav>
-    //   <ul>
-    //     <li><Link to="/">Home</Link></li>
-    //     <li><Link to="/about">About</Link></li>
-    //     <li>
-    //       <Link to="/desafios">Desafios</Link>
-    //     </li>
-    //     <li>
-    //       <Link to="/desafios/10">Desafio 10</Link>
-    //     </li>
-    //   </ul>
-    // </nav>
 
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -130,8 +124,20 @@ export const NavBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleLogout}>Logout</MenuItem>
+              <MenuItem onClick={handleProfile}>
+                <Link to='/perfil'>
+                  <div className='menuItem'>
+                    <User className='menuItem-icon' size={24} />
+                    Perfil
+                  </div>
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleLogout}>
+                <div className='menuItem'>
+                  <SignOut className='menuItem-icon' size={24}/>
+                  Logout
+                </div>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>

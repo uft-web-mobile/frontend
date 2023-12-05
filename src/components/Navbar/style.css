@@ -1,0 +1,9 @@
+.menuItem {
+  color: var(--color-secundary);
+  display: flex;
+  gap: 20px;
+}
+
+.menuItem:hover {
+  color: var(--color-primary);
+}

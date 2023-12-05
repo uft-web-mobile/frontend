@@ -1,0 +1,31 @@
+.container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+}
+
+.contentText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+.content-text {
+  font-size: 22px;
+}
+
+
+.img {
+  width: 100%;
+}

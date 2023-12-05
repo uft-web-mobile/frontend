@@ -5,13 +5,22 @@
 }
 
 :root {
+
+  --color-bg: #E7ECEF;
+  --color-primary: #FF6663; 
+  --color-secundary: #0B3954;
+
+  --color-action: #09BC8A;
+  --color-info-warning: #FDE74C;
+   
+
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: var(--color-secundary);
+  background-color: var(--color-bg);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

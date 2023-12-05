@@ -1,9 +1,13 @@
 import React from "react"
 
 interface Props {
-  title: string
+  title: string,
+  size: number,
 }
 
-export const Title: React.FC<Props> = ({title}) => {
-  return <h1>{title}</h1>
+export const Title: React.FC<Props> = ({title, size}) => {
+  const style = {
+    fontSize: size
+  }
+  return <h1 style={style}>{title}</h1>
 }
