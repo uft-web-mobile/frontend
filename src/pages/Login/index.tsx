@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -17,12 +18,31 @@ import { useAuth } from "../../context/auth";
 const defaultTheme = createTheme();
 
 export const Login = () => {
-  const context = useAuth()
+  const { Login } = useAuth();
 
-  function handleLogin() {
-    context.Login();
-  }
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // Utilize o estado formData diretamente
+    const data = {
+      email: formData.email,
+      password: formData.password,
+    };
+
+    Login({ email: data.email, password: data.password });
+  };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -68,6 +88,8 @@ export const Login = () => {
                 name="email"
                 autoComplete="email"
                 autoFocus
+                value={formData.email}
+                onChange={handleChange}
               />
               <TextField
                 margin="normal"
@@ -78,6 +100,8 @@ export const Login = () => {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={formData.password}
+                onChange={handleChange}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
