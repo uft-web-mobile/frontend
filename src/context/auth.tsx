@@ -35,16 +35,20 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       password: data.password,
     });
 
-    setUser(response.data.user);
+    setUser(response.data.id);
     api.defaults.headers.Authorization = `Bearer ${response.data.token}`;
 
-    localStorage.setItem('@App:user', JSON.stringify(response.data.user));
-    localStorage.setItem('@App:token', response.data.token);
+    localStorage.setItem('@App:id', JSON.stringify(response.data.id));
+    localStorage.setItem('@App:username', JSON.stringify(response.data.username));
+    localStorage.setItem('@App:email', JSON.stringify(response.data.email));
+    localStorage.setItem('@App:token', JSON.stringify(response.data.token));
   }
 
   function Logout() {
     setUser(null);
-    localStorage.removeItem('@App:user');
+    localStorage.removeItem('@App:id');
+    localStorage.removeItem('@App:username');
+    localStorage.removeItem('@App:email');
     localStorage.removeItem('@App:token');
   }
 
