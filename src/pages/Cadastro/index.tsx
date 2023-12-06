@@ -10,42 +10,39 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-import {DatePicker} from '@mui/x-date-pickers/DatePicker';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import api from '../../services/mock/api';
+import dayjs from 'dayjs';
 
-
-
-function Copyright(props: any) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export function Cadastro() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const [selectedDate, setSelectedDate] = React.useState<Date | null>(null);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      firstName: data.get('firstName'),
-      lastName: data.get('lastName'),
-      username: data.get('username'),
+
+    const formattedDate = selectedDate ? dayjs(selectedDate).format('YYYY-MM-DD') : null;
+
+    const formData = {
+      primeiro_nome: data.get('firstName'),
+      segundo_nome: data.get('lastName'),
+      username: data.get('Username'),
       email: data.get('email'),
       password: data.get('password'),
-      data_nascimento: data.get('Aniversario'),
-    });
+      data_nascimento: formattedDate,
+    };
+
+    try {
+      // Make a POST request to your server using Axios
+      const response = await api.post('/api/v1/usuarios/', formData);
+      console.log('Server response:', response.data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (
@@ -122,14 +119,13 @@ export function Cadastro() {
               </Grid>
               <Grid item xs={12}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker 
-                  label="Aniversario"
-                  value={null}
-                  onChange={(newValue: Date | null) => console.log(newValue)}
+                  <DatePicker
+                    label="Aniversario"
+                    value={selectedDate}
+                    onChange={(newValue: Date | null) => setSelectedDate(newValue)}
                   />
                 </LocalizationProvider>
               </Grid>
-              
             </Grid>
             <Button
               type="submit"
@@ -142,13 +138,12 @@ export function Cadastro() {
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/" variant="body2">
-                já tem uma conta? Entrar
+                  já tem uma conta? Entrar
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );
